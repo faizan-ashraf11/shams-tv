@@ -29,9 +29,12 @@ export default function Footer() {
           </div>
           <div className="footer__col">
             <h3>Satellite</h3>
-            <p className="footer__freq">Nilesat 201 · 11470 V<br />Eutelsat 7 West A · 11353 H<br />Apps for iOS, Android &amp; TV</p>
+            <p className="footer__freq mono">Nilesat 201 · 11470 V<br />Eutelsat 7WA · 11353 H<br />iOS · Android · TV apps</p>
           </div>
         </div>
+      </div>
+      <div className="footer__word" aria-hidden="true">Shams</div>
+      <div className="container">
         <div className="footer__base">
           <span>© 2026 Shams TV, Erbil. Prototype — sample content. Footage: Pexels · Photos: Unsplash.</span>
           <nav aria-label="Legal"><a href="#">About</a><a href="#">Careers</a><a href="#">Advertise</a><a href="#">Contact</a><a href="#">Privacy</a></nav>

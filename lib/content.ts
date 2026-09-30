@@ -3,7 +3,7 @@ import { clips, photos, type Clip } from './media';
 
 export { photos, clips };
 
-export type Story = { tag: string; title: string; time: string; img: string; dek?: string; clip?: Clip; duration?: string };
+export type Story = { tag: string; title: string; time: string; img: string; dek?: string; clip?: Clip; duration?: string; em?: string };
 
 export const breaking = 'Erbil International Airport confirms two new direct routes to Europe from November';
 
@@ -15,6 +15,7 @@ export const live = {
 export const lead: Story = {
   tag: 'Region',
   title: 'Two new European routes put Erbil on the map',
+  em: 'on the map',
   dek: 'Direct links cut journey times for the diaspora in half — and put the Kurdistan Region on more investors’ radar. Our correspondents on who gains.',
   time: '38 min ago',
   img: clips.plane.poster,

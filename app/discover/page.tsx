@@ -4,6 +4,7 @@ import Icon, { type IconName } from '@/components/Icon';
 import SmartVideo from '@/components/video/SmartVideo';
 import VideoCard from '@/components/video/VideoCard';
 import PlayTrigger from '@/components/video/PlayTrigger';
+import SectionHead from '@/components/SectionHead';
 import { pillars, cities, programs, clips, photos } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -57,7 +58,7 @@ export default function Discover() {
               <span className="badge badge--sun">Discover Kurdistan</span>
               <span className="ku" lang="ckb">کوردستان</span>
             </div>
-            <h1 className="hero__title">Older than you think. Closer than you’d guess.</h1>
+            <h1 className="hero__title">Older than you think. <em>Closer than you’d guess.</em></h1>
             <p className="hero__dek">A guide to the Kurdistan Region from the newsroom that covers it every day — ancient cities, high mountains, tea-house culture and a region open for business.</p>
             <div className="hero__actions">
               <PlayTrigger clip={clips.erbilAerial} kicker="Discover" className="btn btn--sun btn--lg"><Icon name="play" size={18} />Watch the film</PlayTrigger>
@@ -65,27 +66,35 @@ export default function Discover() {
             </div>
           </div>
 
-          <aside className="live-mini" aria-label="Featured film">
-            <PlayTrigger clip={clips.erbilAerial} kicker="Discover" className="live-mini__screen" label="Play film: Erbil from above">
-              <SmartVideo clip={clips.erbilAerial} poster={clips.erbilAerial.poster} mode="view" sizes="360px" className="ratio-16x9" />
-              <span className="badge badge--glass live-mini__badge"><Icon name="play" size={12} />Film</span>
+          <aside className="live-panel" aria-label="Featured film">
+            <div className="live-panel__top">
+              <span className="badge badge--sun">Film</span>
+              <span className="live-panel__ch">Shams Documentaries</span>
+              <span className="mono live-panel__dur">04:00</span>
+            </div>
+            <PlayTrigger clip={clips.erbilAerial} kicker="Discover" className="live-panel__screen" label="Play film: Erbil from above">
+              <SmartVideo clip={clips.erbilAerial} poster={clips.erbilAerial.poster} mode="view" sizes="400px" className="ratio-16x9" />
               <span className="play-chip play-chip--big" aria-hidden="true"><Icon name="play" size={22} /></span>
             </PlayTrigger>
-            <div className="live-mini__body">
-              <div className="live-mini__row"><span className="live-mini__on live-mini__on--sun">Featured film</span><span>4 min</span></div>
-              <h2 className="live-mini__title">Erbil from above</h2>
-              <p className="live-mini__desc">A drone’s-eye view of the capital — the Citadel, the new city and the mountains beyond.</p>
-              <p className="live-mini__next">Next <b>Roads of Kurdistan</b> · Tue 13:00</p>
+            <div className="live-panel__body">
+              <span className="live-panel__label live-panel__label--sun">Featured film</span>
+              <h2 className="live-panel__title">Erbil from above</h2>
+              <p className="live-panel__desc">A drone’s-eye view of the capital — the Citadel, the new city and the mountains beyond.</p>
             </div>
+            <ol className="live-panel__next" aria-label="Next on Shams">
+              <li><time className="mono">Tue</time><span>Roads of Kurdistan</span><em>13:00</em></li>
+            </ol>
           </aside>
         </div>
 
         <nav className="container hero__rail hero__rail--4" aria-label="Explore Kurdistan">
           {pillars.map((p) => (
             <a key={p.slug} href={`#${p.slug}`} className="rail-item">
-              <span className="rail-item__tag">{p.label}</span>
-              <span className="rail-item__title">{p.title}</span>
-              <span className="rail-item__meta">Explore <Icon name="arrow" size={12} /></span>
+              <span className="rail-item__body">
+                <span className="rail-item__tag">{p.label}</span>
+                <span className="rail-item__title">{p.title}</span>
+                <span className="rail-item__meta mono">Explore <Icon name="arrow" size={12} /></span>
+              </span>
             </a>
           ))}
         </nav>
@@ -103,8 +112,8 @@ export default function Discover() {
       <section className="section">
         <div className="container intro">
           <div>
-            <span className="eyebrow">Why Kurdistan</span>
-            <h2>Three things most people don’t know</h2>
+            <span className="kicker"><span className="kicker__index">01</span>Why Kurdistan</span>
+            <h2>Three things most people <em>don’t know</em></h2>
             <p>The Kurdistan Region has been one of the most stable parts of the Middle East for years. It is also very old, very green and very welcoming. Always check your government’s latest travel advice before you go.</p>
           </div>
           <div className="facts">
@@ -125,7 +134,7 @@ export default function Discover() {
                   <VideoCard clip={p.clip} poster={p.img} alt={p.title} ratio="4x3" mode="view" kicker={p.label} sizes="(max-width: 1024px) 100vw, 600px" />
                 </div>
                 <div>
-                  <span className="eyebrow">{p.label}</span>
+                  <span className="kicker"><span className="kicker__index">0{i + 2}</span>{p.label}</span>
                   <h2>{p.title}</h2>
                   <p>{p.copy}</p>
                   <p>{d.body}</p>
@@ -142,9 +151,7 @@ export default function Discover() {
 
       <section className="section" id="cities">
         <div className="container">
-          <div className="sec-head">
-            <div><span className="eyebrow">Cities &amp; regions</span><h2>Where to go</h2><p>City guides written by our local correspondents.</p></div>
-          </div>
+          <SectionHead index="06" label="Cities & regions" title={<>Where to <em>go</em></>} dek="City guides written by our local correspondents." />
           <div className="grid-4 grid-4--keep2">
             {cities.map((c) => (
               <Link key={c.slug} href={c.slug === 'erbil' ? '/discover/erbil' : '#cities'} className="pillar-card">
@@ -163,17 +170,16 @@ export default function Discover() {
         </div>
       </section>
 
-      <section className="section section--ink" id="watch">
+      <section className="section section--night" id="watch">
         <div className="container">
-          <div className="sec-head">
-            <div><span className="eyebrow">Watch on Shams</span><h2>Documentaries &amp; series</h2></div>
+          <SectionHead index="07" label="Watch on Shams" title={<>Documentaries <em>&amp; series</em></>}>
             <Link href="/programs" className="link-more">All programmes <Icon name="arrow" size={16} /></Link>
-          </div>
+          </SectionHead>
           <div className="grid-3">
             {docs.map((p) => (
               <article key={p.slug} className="story story--dark reveal">
                 <VideoCard clip={p.clip} poster={p.clip.poster} kicker={p.title} duration="Trailer" />
-                <span className="tag tag--on-dark">{p.kind} · {p.when}</span>
+                <span className="show__when mono">{p.kind} · {p.when}</span>
                 <h3 className="story__title">{p.title}</h3>
                 <p className="story__dek">{p.blurb}</p>
               </article>
@@ -184,7 +190,7 @@ export default function Discover() {
 
       <section className="section" id="plan">
         <div className="container">
-          <div className="sec-head"><div><span className="eyebrow">Plan a trip</span><h2>The practical bits</h2></div></div>
+          <SectionHead index="08" label="Plan a trip" title={<>The practical <em>bits</em></>} />
           <div className="grid-4">
             {plan.map((p) => (
               <div key={p.title} className="info-card reveal">
@@ -199,7 +205,7 @@ export default function Discover() {
             <span className="cta__shade" />
             <span className="cta__text">
               <span className="eyebrow eyebrow--sun">City guide</span>
-              <span className="cta__title">Start with the capital: Erbil</span>
+              <span className="cta__title">Start with the capital: <em>Erbil</em></span>
               <span className="cta__sub">The Citadel, the bazaar, tea houses and day trips.</span>
             </span>
             <span className="btn btn--sun">Explore Erbil <Icon name="arrow" size={16} /></span>

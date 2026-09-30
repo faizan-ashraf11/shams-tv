@@ -23,7 +23,7 @@ export default function ShortsRail({ items }: { items: Clip[] }) {
             <VideoCard clip={c} poster={c.poster} ratio="9x16" sizes="(max-width: 768px) 60vw, 240px" playlist={items} kicker="Shams Shorts" bigPlay>
               <span className="short__shade" />
               <span className="short__text">
-                <span className="tag tag--on-dark">{labels[i] ?? 'Shorts'}</span>
+                <span className="short__tag mono">{labels[i] ?? 'Shorts'}</span>
                 <span className="short__title">{c.title}</span>
               </span>
             </VideoCard>

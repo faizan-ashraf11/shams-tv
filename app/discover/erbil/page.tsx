@@ -5,6 +5,8 @@ import ErbilClock from '@/components/ErbilClock';
 import SmartVideo from '@/components/video/SmartVideo';
 import VideoCard from '@/components/video/VideoCard';
 import PlayTrigger from '@/components/video/PlayTrigger';
+import SectionHead from '@/components/SectionHead';
+import SunArc from '@/components/SunArc';
 import { latest, photos, clips } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -40,15 +42,17 @@ export default function Erbil() {
       </section>
 
       <div className="container facts-bar">
-        <div className="fact"><span className="eyebrow">Local time</span><b><ErbilClock /></b><span>UTC+3, all year</span></div>
+        <div>
+        <div className="fact"><span className="eyebrow">Local time</span><b><ErbilClock /></b><SunArc /></div>
         <div className="fact"><span className="eyebrow">Inhabited for</span><b>6,000+ yrs</b><span>UNESCO World Heritage, 2014</span></div>
         <div className="fact"><span className="eyebrow">Airport</span><b>EBL</b><span>About 15 min from the centre</span></div>
         <div className="fact"><span className="eyebrow">Best months</span><b>Mar–May</b><span>and Sep–Nov</span></div>
+        </div>
       </div>
 
       <section className="section">
         <div className="container">
-          <div className="sec-head"><div><span className="eyebrow">Where to start</span><h2>Picked by our Erbil newsroom</h2></div></div>
+          <SectionHead index="01" label="Where to start" title={<>Picked by our <em>Erbil newsroom</em></>} />
           <div className="grid-3">
             {places.map((p) => (
               <article key={p.name} className="story reveal">
@@ -65,14 +69,13 @@ export default function Erbil() {
       <section className="section section--paper">
         <div className="container split">
           <div>
-            <div className="sec-head">
-              <div><span className="eyebrow">From the newsroom</span><h2>Erbil today</h2></div>
+            <SectionHead index="02" label="From the newsroom" title={<>Erbil <em>today</em></>}>
               <Link href="/#news" className="link-more">All news <Icon name="arrow" size={16} /></Link>
-            </div>
+            </SectionHead>
             <div className="updates updates--flat">
               <ol>
                 {latest.map((l) => (
-                  <li key={l.title}><time>{l.time}</time><div><span className="tag">{l.tag}</span><a href="#">{l.title}</a></div></li>
+                  <li key={l.title}><time className="mono">{l.time}</time><div><span className="tag">{l.tag}</span><a href="#">{l.title}</a></div></li>
                 ))}
               </ol>
             </div>

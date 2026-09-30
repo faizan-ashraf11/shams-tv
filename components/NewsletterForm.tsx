@@ -6,7 +6,8 @@ export default function NewsletterForm() {
   return (
     <div className="newsletter">
       <div>
-        <h2>The Morning Sun</h2>
+        <span className="kicker">Newsletter</span>
+        <h2>The <em>Morning Sun</em></h2>
         <p>Five stories from Kurdistan, in English, before your first coffee. Free, every weekday.</p>
       </div>
       <form

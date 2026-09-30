@@ -1,8 +1,10 @@
 'use client';
-// Cinematic, news-led hero: the lead story plays full-bleed; the live channel sits beside it.
+// Front page: the lead story plays full-bleed; the live channel is a "control panel" beside it.
 import SmartVideo from './video/SmartVideo';
 import { useVideo } from './video/VideoProvider';
 import Icon from './Icon';
+import SunArc from './SunArc';
+import Emph from './Emph';
 import { useErbilNow } from './useErbilNow';
 import { onAir, describe } from '@/lib/schedule';
 import { lead, live, alsoToday } from '@/lib/content';
@@ -16,45 +18,62 @@ export default function HomeHero() {
     <section className="hero" aria-label="Top story and live TV">
       <SmartVideo clip={lead.clip} poster={lead.img} mode="background" sizes="100vw" priority className="hero__bg" />
       <div className="hero__shade" />
+      <div className="hero__grain" aria-hidden="true" />
 
       <div className="container hero__in">
         <div className="hero__story">
           <div className="hero__kicker">
             <span className="badge badge--sun">Top story</span>
-            <span>{lead.tag} · {lead.time}</span>
+            <span className="mono">{lead.tag} · {lead.time}</span>
           </div>
-          <h1 className="hero__title">{lead.title}</h1>
+          <h1 className="hero__title"><Emph text={lead.title} em={lead.em} /></h1>
           <p className="hero__dek">{lead.dek}</p>
           <div className="hero__actions">
             <button className="btn btn--sun btn--lg" onClick={() => open(lead.clip!, { kicker: 'Report' })}>
-              <Icon name="play" size={18} />Watch report · {lead.duration}
+              <span className="btn__play"><Icon name="play" size={14} /></span>Watch report <span className="mono btn__dur">{lead.duration}</span>
             </button>
-            <a href="#news" className="btn btn--glass btn--lg">Read the story</a>
+            <a href="#news" className="btn btn--ghost btn--lg">Read the story <Icon name="arrow" size={18} /></a>
           </div>
         </div>
 
-        <aside className="live-mini" aria-label="Live now">
-          <button className="live-mini__screen" onClick={() => open(live.clip, { live: true })} aria-label={`Watch ${current.title} live`}>
-            <SmartVideo clip={live.clip} poster={live.clip.poster} mode="view" sizes="360px" className="ratio-16x9" />
-            <span className="badge badge--live live-mini__badge"><span className="dot dot--pulse" />LIVE</span>
+        <aside className="live-panel" aria-label="Live now">
+          <div className="live-panel__top">
+            <span className="badge badge--live"><span className="dot dot--pulse" />Live</span>
+            <span className="live-panel__ch">Shams TV · Erbil</span>
+            <SunArc compact />
+          </div>
+          <button className="live-panel__screen" onClick={() => open(live.clip, { live: true })} aria-label={`Watch ${current.title} live`}>
+            <SmartVideo clip={live.clip} poster={live.clip.poster} mode="view" sizes="400px" className="ratio-16x9" />
             <span className="play-chip play-chip--big" aria-hidden="true"><Icon name="play" size={22} /></span>
           </button>
-          <div className="live-mini__body">
-            <div className="live-mini__row"><span className="live-mini__on">On now</span><span>{current.time}–{current.end}</span></div>
-            <h2 className="live-mini__title">{current.title}</h2>
-            <p className="live-mini__desc">{now ? describe(current) : live.title}</p>
-            <div className="progress" aria-label={`${Math.round(progress)}% through`}><i style={{ width: `${progress}%` }} /></div>
-            {next[0] && <p className="live-mini__next">Next <b>{next[0].time}</b> {next[0].title}</p>}
+          <div className="live-panel__body">
+            <span className="live-panel__label">On now</span>
+            <h2 className="live-panel__title">{current.title}</h2>
+            <p className="live-panel__desc">{now ? describe(current) : live.title}</p>
+            <div className="progress" role="progressbar" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100} aria-label="Programme progress">
+              <i style={{ width: `${progress}%` }} />
+            </div>
+            <div className="live-panel__times mono"><span>{current.time}</span><span>{current.end}</span></div>
           </div>
+          {next.length > 0 && (
+            <ol className="live-panel__next" aria-label="Up next">
+              {next.map((s) => (
+                <li key={s.time}><time className="mono">{s.time}</time><span>{s.title}</span><em>{s.kind}</em></li>
+              ))}
+            </ol>
+          )}
         </aside>
       </div>
 
       <div className="container hero__rail">
-        {alsoToday.map((s) => (
+        {alsoToday.map((s, i) => (
           <button key={s.title} className="rail-item" onClick={() => s.clip && open(s.clip, { kicker: s.tag })} disabled={!s.clip}>
-            <span className="rail-item__tag">{s.tag}</span>
-            <span className="rail-item__title">{s.title}</span>
-            <span className="rail-item__meta">{s.clip ? <><Icon name="play" size={12} /> {s.duration}</> : s.time}</span>
+            <span className="rail-item__i mono">0{i + 2}</span>
+            <span className="rail-item__body">
+              <span className="rail-item__tag">{s.tag}</span>
+              <span className="rail-item__title">{s.title}</span>
+              <span className="rail-item__meta mono">{s.clip ? <><Icon name="play" size={11} /> {s.duration}</> : s.time}</span>
+            </span>
           </button>
         ))}
       </div>
