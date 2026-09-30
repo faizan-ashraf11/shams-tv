@@ -1,12 +1,12 @@
 'use client';
-// Front page: the lead story plays full-bleed; the live channel is a "control panel" beside it.
+// Front page: the lead story plays full-bleed. The live channel sits in the bottom broadcast bar,
+// first in line with the day's other headlines.
 import SmartVideo from './video/SmartVideo';
 import { useVideo } from './video/VideoProvider';
 import Icon from './Icon';
-import SunArc from './SunArc';
 import Emph from './Emph';
 import { useErbilNow } from './useErbilNow';
-import { onAir, describe } from '@/lib/schedule';
+import { onAir } from '@/lib/schedule';
 import { lead, live, alsoToday } from '@/lib/content';
 
 export default function HomeHero() {
@@ -35,40 +35,27 @@ export default function HomeHero() {
             <a href="#news" className="btn btn--ghost btn--lg">Read the story <Icon name="arrow" size={18} /></a>
           </div>
         </div>
-
-        <aside className="live-panel" aria-label="Live now">
-          <div className="live-panel__top">
-            <span className="badge badge--live"><span className="dot dot--pulse" />Live</span>
-            <span className="live-panel__ch">Shams TV · Erbil</span>
-            <SunArc compact />
-          </div>
-          <button className="live-panel__screen" onClick={() => open(live.clip, { live: true })} aria-label={`Watch ${current.title} live`}>
-            <SmartVideo clip={live.clip} poster={live.clip.poster} mode="view" sizes="400px" className="ratio-16x9" />
-            <span className="play-chip play-chip--big" aria-hidden="true"><Icon name="play" size={22} /></span>
-          </button>
-          <div className="live-panel__body">
-            <span className="live-panel__label">On now</span>
-            <h2 className="live-panel__title">{current.title}</h2>
-            <p className="live-panel__desc">{now ? describe(current) : live.title}</p>
-            <div className="progress" role="progressbar" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100} aria-label="Programme progress">
-              <i style={{ width: `${progress}%` }} />
-            </div>
-            <div className="live-panel__times mono"><span>{current.time}</span><span>{current.end}</span></div>
-          </div>
-          {next.length > 0 && (
-            <ol className="live-panel__next" aria-label="Up next">
-              {next.map((s) => (
-                <li key={s.time}><time className="mono">{s.time}</time><span>{s.title}</span><em>{s.kind}</em></li>
-              ))}
-            </ol>
-          )}
-        </aside>
       </div>
 
-      <div className="container hero__rail">
-        {alsoToday.map((s, i) => (
+      <div className="container hero__bar">
+        <button className="onair" onClick={() => open(live.clip, { live: true })} aria-label={`Watch live: ${current.title}`}>
+          <span className="onair__thumb">
+            <SmartVideo clip={live.clip} poster={live.clip.poster} mode="view" sizes="160px" className="ratio-16x9" />
+            <span className="onair__play" aria-hidden="true"><Icon name="play" size={14} /></span>
+          </span>
+          <span className="onair__body">
+            <span className="onair__meta">
+              <span className="onair__live"><span className="dot dot--pulse" />Live</span>
+              <span className="mono">{current.time}–{current.end}</span>
+            </span>
+            <span className="onair__title">{current.title}</span>
+            <span className="onair__progress" aria-hidden="true"><i style={{ width: `${progress}%` }} /></span>
+            {next[0] && <span className="onair__next">Next <span className="mono">{next[0].time}</span> {next[0].title}</span>}
+          </span>
+        </button>
+
+        {alsoToday.map((s) => (
           <button key={s.title} className="rail-item" onClick={() => s.clip && open(s.clip, { kicker: s.tag })} disabled={!s.clip}>
-            <span className="rail-item__i mono">0{i + 2}</span>
             <span className="rail-item__body">
               <span className="rail-item__tag">{s.tag}</span>
               <span className="rail-item__title">{s.title}</span>
