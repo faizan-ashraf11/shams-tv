@@ -66,25 +66,6 @@ export default function Discover() {
             </div>
           </div>
 
-          <aside className="live-panel" aria-label="Featured film">
-            <div className="live-panel__top">
-              <span className="badge badge--sun">Film</span>
-              <span className="live-panel__ch">Shams Documentaries</span>
-              <span className="mono live-panel__dur">04:00</span>
-            </div>
-            <PlayTrigger clip={clips.erbilAerial} kicker="Discover" className="live-panel__screen" label="Play film: Erbil from above">
-              <SmartVideo clip={clips.erbilAerial} poster={clips.erbilAerial.poster} mode="view" sizes="400px" className="ratio-16x9" />
-              <span className="play-chip play-chip--big" aria-hidden="true"><Icon name="play" size={22} /></span>
-            </PlayTrigger>
-            <div className="live-panel__body">
-              <span className="live-panel__label live-panel__label--sun">Featured film</span>
-              <h2 className="live-panel__title">Erbil from above</h2>
-              <p className="live-panel__desc">A drone’s-eye view of the capital — the Citadel, the new city and the mountains beyond.</p>
-            </div>
-            <ol className="live-panel__next" aria-label="Next on Shams">
-              <li><time className="mono">Tue</time><span>Roads of Kurdistan</span><em>13:00</em></li>
-            </ol>
-          </aside>
         </div>
 
         <nav className="container hero__rail hero__rail--4" aria-label="Explore Kurdistan">
